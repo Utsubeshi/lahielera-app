@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "633537087354",
+    "firebase_url": "https://hielera-app.firebaseio.com",
+    "project_id": "hielera-app",
+    "storage_bucket": "hielera-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633537087354:android:6dd6e6cd92f92b4f70f8c3",
+        "android_client_info": {
+          "package_name": "com.lahielera.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633537087354-mu0f6s4dt1njbfo1lidujpn0j1ed7k7t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lahielera.app",
+            "certificate_hash": "29ce0904a87e5d8147fb4ec73d8494bd7a00e4d9"
+          }
+        },
+        {
+          "client_id": "633537087354-jqt3bqbc0dl85oarou311kguobfe8lfp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2R4b6vnS4Qwer7rsnlDU3pqIM3K6c-dE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633537087354-jqt3bqbc0dl85oarou311kguobfe8lfp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

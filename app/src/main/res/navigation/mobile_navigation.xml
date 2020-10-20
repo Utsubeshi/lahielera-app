@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_catalogo">
+
+    <fragment
+        android:id="@+id/nav_catalogo"
+        android:name="com.lahielera.app.ui.catalogo.CatalogoFragment"
+        android:label="@string/catalogo_fragment" />
+    <fragment
+        android:id="@+id/nav_pedidos"
+        android:name="com.lahielera.app.ui.pedidos.PedidosFragment"
+        android:label="@string/pedidos_fragment" />
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.lahielera.app.ui.perfil.Perfil_Fragment"
+        android:label="@string/perfil_fragment"
+        tools:layout="@layout/perfil__fragment" />
+</navigation>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">La Hielera</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="catalogo_fragment">Catalogo</string>
+    <string name="pedidos_fragment">Mis pedidos</string>
+    <string name="perfil_fragment">Mi perfil</string>
+    <string name="soles_simbolo">S/</string>
+    <string name="precio_format">S/ d%</string>
+</resources>
