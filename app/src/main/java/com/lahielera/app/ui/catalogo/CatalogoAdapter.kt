@@ -14,10 +14,11 @@ class CatalogoAdapter (): RecyclerView.Adapter<CatalogoAdapter.ViewHolder>() {
 
     private  var data: ArrayList<Producto>  = arrayListOf<Producto>()
     private val picasso = Picasso.get()
+    private lateinit var listener: OnProductosClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_producto, parent, false)
+                .inflate(R.layout.item_producto, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -30,7 +31,9 @@ class CatalogoAdapter (): RecyclerView.Adapter<CatalogoAdapter.ViewHolder>() {
                     .into(binding.productoImagen)
             val precio = "S/ ${producto.precio}"
             binding.productoPrecio.text = precio
-
+            binding.productoImagen.setOnClickListener{
+                listener.onProductoClick(producto)
+            }
         }
     }
 
@@ -40,13 +43,13 @@ class CatalogoAdapter (): RecyclerView.Adapter<CatalogoAdapter.ViewHolder>() {
         val binding = ItemProductoBinding.bind(itemView)
     }
 
-    fun addData( listaProducto: ArrayList<Producto>) {
+    fun addData( listaProducto: ArrayList<Producto>, onProductosClickListener: OnProductosClickListener) {
         this.data = listaProducto
+        this.listener = onProductosClickListener
         notifyDataSetChanged()
     }
 
     interface OnProductosClickListener {
         fun onProductoClick(producto: Producto)
     }
-
 }

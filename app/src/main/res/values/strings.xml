@@ -14,4 +14,8 @@
     <string name="perfil_fragment">Mi perfil</string>
     <string name="soles_simbolo">S/</string>
     <string name="precio_format">S/ d%</string>
+    <string name="detalle_producto">Detalles del producto</string>
+    <string name="agregar_al_carro">Agregar</string>
+    <string name="label_cantidad">CANTIDAD</string>
+    <string name="label_precio">PRECIO</string>
 </resources>

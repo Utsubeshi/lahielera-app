@@ -5,21 +5,184 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.detalleproducto.DetalleProductoFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/header_bg"
+        tools:context=".ui.detalleproducto.DetalleProductoFragment">
 
-    <TextView
-        android:id="@+id/producto_marca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_white_app"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <ImageView
+            android:id="@+id/detalle_imagen"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detalle_imagen">
+
+            <ImageView
+                android:id="@+id/cantidad_reducir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/cantidad_aumentar"
+                app:layout_constraintEnd_toStartOf="@+id/detalle_cantidad"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/detalle_precio"
+                app:layout_constraintTop_toTopOf="@+id/cantidad_aumentar"
+                app:srcCompat="@drawable/add_circulo" />
+
+            <ImageView
+                android:id="@+id/cantidad_aumentar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/detalle_add_to_cart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/detalle_cantidad"
+                app:layout_constraintTop_toBottomOf="@+id/label_cantidad"
+                app:srcCompat="@drawable/add_circulo" />
+
+            <TextView
+                android:id="@+id/detalle_precio"
+                style="@style/text_gray_18sp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/cantidad_reducir"
+                app:layout_constraintEnd_toStartOf="@+id/cantidad_reducir"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cantidad_reducir" />
+
+            <TextView
+                android:id="@+id/detalle_cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="@+id/cantidad_aumentar"
+                app:layout_constraintEnd_toStartOf="@+id/cantidad_aumentar"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cantidad_reducir"
+                app:layout_constraintTop_toTopOf="@+id/cantidad_aumentar"
+                style="@style/text_gray_18sp"/>
+
+            <TextView
+                android:id="@+id/label_cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/label_cantidad"
+                android:textColor="@color/azul"
+                app:layout_constraintBottom_toTopOf="@+id/cantidad_aumentar"
+                app:layout_constraintEnd_toEndOf="@+id/detalle_cantidad"
+                app:layout_constraintStart_toStartOf="@+id/detalle_cantidad"
+                app:layout_constraintTop_toBottomOf="@+id/detalle_descripcion" />
+
+            <TextView
+                android:id="@+id/label_precio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/label_precio"
+                android:textColor="@color/azul"
+                app:layout_constraintBaseline_toBaselineOf="@+id/label_cantidad"
+                app:layout_constraintEnd_toEndOf="@+id/detalle_precio"
+                app:layout_constraintStart_toStartOf="@+id/detalle_precio" />
+
+            <TextView
+                android:id="@+id/detalle_marca"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:text="TextView"
+                android:textColor="@color/azul"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/detalle_nombre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detalle_descripcion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/label_cantidad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detalle_nombre" />
+
+            <TextView
+                android:id="@+id/detalle_nombre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:text="TextView"
+                android:textColor="@color/text_gray"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/detalle_descripcion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detalle_marca" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/detalle_add_to_cart"
+                style="@style/button_blue_style"
+                android:text="@string/agregar_al_carro"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_shopping_cart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

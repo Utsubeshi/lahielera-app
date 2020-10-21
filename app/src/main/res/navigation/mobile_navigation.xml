@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/nav_catalogo"
         android:name="com.lahielera.app.ui.catalogo.CatalogoFragment"
-        android:label="@string/catalogo_fragment" />
+        android:label="@string/catalogo_fragment" >
+        <action
+            android:id="@+id/action_nav_catalogo_to_detalleProductoFragment"
+            app:destination="@id/nav_detalle_producto" />
+    </fragment>
     <fragment
         android:id="@+id/nav_pedidos"
         android:name="com.lahielera.app.ui.pedidos.PedidosFragment"
@@ -18,4 +22,12 @@
         android:name="com.lahielera.app.ui.perfil.Perfil_Fragment"
         android:label="@string/perfil_fragment"
         tools:layout="@layout/perfil__fragment" />
+    <fragment
+        android:id="@+id/nav_detalle_producto"
+        android:name="com.lahielera.app.ui.detalleproducto.DetalleProductoFragment"
+        android:label="@string/detalle_producto">
+        <argument
+            android:name="producto"
+            app:argType="com.lahielera.app.model.Producto" />
+    </fragment>
 </navigation>

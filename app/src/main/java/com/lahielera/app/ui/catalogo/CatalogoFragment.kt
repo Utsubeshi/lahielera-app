@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.lahielera.app.R
 import com.lahielera.app.databinding.FragmentCatalogoBinding
 import com.lahielera.app.model.Producto
+import com.lahielera.app.ui.detalleproducto.DetalleProductoFragment
 
 class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
 
@@ -44,7 +46,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
     private fun getProductos() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { lista ->
             if (lista != null && lista.size > 0) {
-                adapter.addData(lista)
+                adapter.addData(lista, this)
             }
         })
     }
@@ -56,6 +58,6 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
     }
 
     override fun onProductoClick(producto: Producto) {
-        //TODO
+        findNavController().navigate(CatalogoFragmentDirections.actionNavCatalogoToDetalleProductoFragment(producto))
     }
 }
