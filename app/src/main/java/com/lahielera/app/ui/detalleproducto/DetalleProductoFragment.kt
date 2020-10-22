@@ -29,25 +29,42 @@ class DetalleProductoFragment : Fragment() {
                 false)
         val productoFragmentArgs by navArgs<DetalleProductoFragmentArgs>()
         viewModelFactory = DetalleProductoViewModelFactory(productoFragmentArgs.producto)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(DetalleProductoViewModel::class.java)
+        showProducto()
+
+        binding.cantidadAumentar.setOnClickListener{
+            viewModel.aumentarCantidad()
+        }
+
+        binding.cantidadReducir.setOnClickListener{
+            if (viewModel.cantidad.value!! > 1) {
+                viewModel.reducirCantidad()
+            }
+        }
+
+        viewModel.cantidad.observe(viewLifecycleOwner, Observer { cantidad ->
+            binding.detalleCantidad.text = cantidad.toString()
+        })
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(DetalleProductoViewModel::class.java)
-        showProducto()
     }
 
     private fun showProducto() {
         viewModel.producto.observe(viewLifecycleOwner, Observer { producto ->
-            with(binding) {
-                picasso.load(producto.urlImg)
-                        .into(detalleImagen)
-                detalleMarca.text = producto.marca
-                detalleDescripcion.text = producto.descripcion
-                detalleNombre.text = producto.nombre
-                val precio = "S/ ${producto.precio}"
-                detallePrecio.text = precio
+            if (producto != null) {
+                with(binding) {
+                    picasso.load(producto.urlImg)
+                            .into(detalleImagen)
+                    detalleMarca.text = producto.marca
+                    detalleDescripcion.text = producto.descripcion
+                    detalleNombre.text = producto.nombre
+                    val precio = "S/ ${producto.precio}"
+                    detallePrecio.text = precio
+                }
             }
         })
     }

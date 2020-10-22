@@ -9,13 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lahielera.app.R
 import com.lahielera.app.databinding.FragmentCatalogoBinding
 import com.lahielera.app.model.Producto
-import com.lahielera.app.ui.detalleproducto.DetalleProductoFragment
 
 class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
 
@@ -59,5 +58,15 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
 
     override fun onProductoClick(producto: Producto) {
         findNavController().navigate(CatalogoFragmentDirections.actionNavCatalogoToDetalleProductoFragment(producto))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
     }
 }

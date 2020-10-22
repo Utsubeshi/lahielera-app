@@ -18,4 +18,18 @@
     <string name="agregar_al_carro">Agregar</string>
     <string name="label_cantidad">CANTIDAD</string>
     <string name="label_precio">PRECIO</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="ingresa_email_texto">Correo electrónico</string>
+    <string name="ingresa_pass_texto">Contraseña</string>
+    <string name="login_text">ingresar</string>
+    <string name="login_register_text">¿No esta registrado? Registrese aqui.</string>
+    <string name="ingresa_pass2_texto">Repetir la contraseña</string>
+    <string name="register_text">Registrarse</string>
+    <string name="cerrar_session_text">Cerrar sesion</string>
+    <string name="detalle_password">La contraseña debe tener:
+        <br>Una mayúscula.</br>
+        <br>Un número.</br>
+        <br>Mínimo 8 caracteres</br> </string>
 </resources>
