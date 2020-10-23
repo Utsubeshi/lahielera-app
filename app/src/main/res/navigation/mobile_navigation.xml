@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_nav_catalogo_to_detalleProductoFragment"
             app:destination="@id/nav_detalle_producto" />
+        <action
+            android:id="@+id/action_nav_catalogo_to_carritoFragment"
+            app:destination="@id/nav_carrito" />
     </fragment>
     <fragment
         android:id="@+id/nav_pedidos"
@@ -30,4 +33,9 @@
             android:name="producto"
             app:argType="com.lahielera.app.model.Producto" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_carrito"
+        android:name="com.lahielera.app.ui.carrito.CarritoFragment"
+        android:label="@string/carrito_label"
+        tools:layout="@layout/carrito_fragment" />
 </navigation>

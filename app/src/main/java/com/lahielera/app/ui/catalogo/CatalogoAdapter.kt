@@ -34,6 +34,9 @@ class CatalogoAdapter (): RecyclerView.Adapter<CatalogoAdapter.ViewHolder>() {
             binding.productoImagen.setOnClickListener{
                 listener.onProductoClick(producto)
             }
+            binding.addToCart.setOnClickListener{
+                listener.onAddToCart(producto)
+            }
         }
     }
 
@@ -51,5 +54,7 @@ class CatalogoAdapter (): RecyclerView.Adapter<CatalogoAdapter.ViewHolder>() {
 
     interface OnProductosClickListener {
         fun onProductoClick(producto: Producto)
+
+        fun onAddToCart(producto: Producto)
     }
 }

@@ -57,7 +57,7 @@ class SplashFragment : Fragment(), CoroutineScope {
 
     private fun hasSession() {
         launch {
-            delay(2000)
+            delay(1500)
             withContext(Dispatchers.Main) {
                 viewModel.hasSesion.observe(viewLifecycleOwner, Observer { hasSession ->
                     if (hasSession) {

@@ -32,4 +32,5 @@
         <br>Una mayúscula.</br>
         <br>Un número.</br>
         <br>Mínimo 8 caracteres</br> </string>
+    <string name="carrito_label">Mi carrito</string>
 </resources>

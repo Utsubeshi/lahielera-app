@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lahielera.app.R
+import com.lahielera.app.database.ProductoDatabase
 import com.lahielera.app.databinding.FragmentCatalogoBinding
 import com.lahielera.app.model.Producto
 
@@ -33,12 +34,16 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
             container,
             false)
         loadRecyclerView()
+        val application = requireNotNull(this.activity).application
+        val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
+        val viewModelFactory = CatalogoViewModelFactory(dataSource,application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CatalogoViewModel::class.java)
+        binding.setLifecycleOwner(this)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CatalogoViewModel::class.java)
         getProductos()
     }
 
@@ -58,6 +63,10 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
 
     override fun onProductoClick(producto: Producto) {
         findNavController().navigate(CatalogoFragmentDirections.actionNavCatalogoToDetalleProductoFragment(producto))
+    }
+
+    override fun onAddToCart(producto: Producto) {
+        viewModel.agregarAlCarro(producto)
     }
 
     override fun onPause() {
