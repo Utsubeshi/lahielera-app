@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="producto"
+            type="com.lahielera.app.model.Producto" />
+
+        <variable
+            name="carritoViewModel"
+            type="com.lahielera.app.ui.carrito.CarritoViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_8dp"
+    android:layout_marginTop="@dimen/margin_8dp"
+    android:background="@drawable/item_catalogo_bg">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imagen_producto"
+        app:layout_constraintEnd_toEndOf="@+id/imagen_producto"
+        app:layout_constraintStart_toStartOf="@+id/imagen_producto"
+        app:layout_constraintTop_toTopOf="@+id/imagen_producto"
+        app:srcCompat="@drawable/shape_circulo_blanco" />
+
+    <ImageView
+        android:id="@+id/imagen_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/item_marca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="@{producto.marca}"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/imagen_producto"
+        app:layout_constraintTop_toTopOf="@+id/imagen_producto" />
+
+    <TextView
+        android:id="@+id/item_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="asdf"
+        android:textColor="@color/azul"
+        app:layout_constraintStart_toStartOf="@+id/item_marca"
+        app:layout_constraintTop_toBottomOf="@+id/item_marca" />
+
+    <TextView
+        android:id="@+id/item_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="@{producto.nombre}"
+        android:textColor="@color/azul"
+        app:layout_constraintStart_toStartOf="@+id/item_categoria"
+        app:layout_constraintTop_toBottomOf="@+id/item_categoria" />
+
+    <TextView
+        android:id="@+id/item_precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="@{@string/formato_precio(producto.precio)}"
+        android:textColor="@color/azul"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/item_nombre"
+        app:layout_constraintTop_toBottomOf="@+id/item_nombre" />
+
+    <TextView
+        android:id="@+id/cantidad_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/label_cantidad"
+        android:textColor="@color/azul"
+        app:layout_constraintEnd_toEndOf="@+id/item_mas"
+        app:layout_constraintStart_toStartOf="@+id/item_menos"
+        app:layout_constraintTop_toBottomOf="@+id/item_precio" />
+
+    <TextView
+        android:id="@+id/items_cantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:text="@{@string/formato_cantidad(producto.cantidad)}"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_mas"
+        app:layout_constraintEnd_toStartOf="@+id/item_mas"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/item_menos"
+        app:layout_constraintTop_toTopOf="@+id/item_mas" />
+
+    <ImageView
+        android:id="@+id/item_mas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/items_cantidad"
+        app:layout_constraintTop_toBottomOf="@+id/cantidad_label"
+        app:srcCompat="@drawable/add_circulo" />
+
+    <ImageView
+        android:id="@+id/item_menos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/items_cantidad"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imagen_producto"
+        app:layout_constraintTop_toBottomOf="@+id/cantidad_label"
+        app:srcCompat="@drawable/remove_circulo" />
+
+    <ImageView
+        android:id="@+id/item_eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cancel" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

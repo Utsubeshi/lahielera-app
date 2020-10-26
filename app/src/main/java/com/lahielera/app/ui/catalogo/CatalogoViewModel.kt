@@ -10,10 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lahielera.app.database.ProductoDatabaseDAO
 import com.lahielera.app.model.Producto
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class CatalogoViewModel(
 
@@ -55,16 +52,28 @@ class CatalogoViewModel(
         viewModelJob.cancel()
     }
 
-    fun agregarAlCarro(producto: Producto){
+    fun agregarAlCarro(producto: Producto) {
         uiScope.launch {
-            insert(producto)
+            val getProdutoTask = async { get(producto.uid.toString()) }
+            val _p: Producto? = getProdutoTask.await()
+            if (_p == null) {
+                insert(producto)
+            } else {
+                _p.cantidad = _p.cantidad.plus(1)
+                update(_p)
+            }
         }
     }
 
     private suspend fun insert(producto: Producto) {
-        //db.insert(producto)
-        val productos = db.getAllProductos()
-        Log.e("CarritoViewModel", "${productos[0].marca} ${producto.descripcion}")
+        db.insert(producto)
     }
 
+    private  suspend fun get(uid: String): Producto? {
+        return  db.get(uid)
+    }
+
+    private suspend fun update(producto: Producto) {
+        db.update(producto)
+    }
 }

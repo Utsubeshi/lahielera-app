@@ -33,4 +33,8 @@
         <br>Un número.</br>
         <br>Mínimo 8 caracteres</br> </string>
     <string name="carrito_label">Mi carrito</string>
+    <string name="checkout_text">Checkout</string>
+    <string name="formato_precio">Total: S/ %.2f</string>
+    <string name="formato_cantidad">%d</string>
+    <string name="carrito_vacio">El carrito de compras esta vacio</string>
 </resources>

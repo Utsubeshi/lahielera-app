@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.lahielera.app.R
+import com.lahielera.app.database.ProductoDatabase
 import com.lahielera.app.databinding.DetalleProductoFragmentBinding
 import com.squareup.picasso.Picasso
 
@@ -28,10 +30,11 @@ class DetalleProductoFragment : Fragment() {
                 container,
                 false)
         val productoFragmentArgs by navArgs<DetalleProductoFragmentArgs>()
-        viewModelFactory = DetalleProductoViewModelFactory(productoFragmentArgs.producto)
+        val application = requireNotNull(this.activity).application
+        val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
+        viewModelFactory = DetalleProductoViewModelFactory(productoFragmentArgs.producto, dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DetalleProductoViewModel::class.java)
         showProducto()
-
         binding.cantidadAumentar.setOnClickListener{
             viewModel.aumentarCantidad()
         }
@@ -45,6 +48,10 @@ class DetalleProductoFragment : Fragment() {
         viewModel.cantidad.observe(viewLifecycleOwner, Observer { cantidad ->
             binding.detalleCantidad.text = cantidad.toString()
         })
+
+        binding.detalleAddToCart.setOnClickListener {
+            addToCart()
+        }
 
         return binding.root
     }
@@ -65,6 +72,16 @@ class DetalleProductoFragment : Fragment() {
                     val precio = "S/ ${producto.precio}"
                     detallePrecio.text = precio
                 }
+            }
+        })
+    }
+
+    private fun addToCart(){
+        viewModel.agregarAlCarrito()
+        viewModel.producto.observe(viewLifecycleOwner, Observer {producto ->
+            view?.let {
+                Snackbar.make(it, "Producto agregado: ${producto.marca} ${producto.nombre}", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
             }
         })
     }

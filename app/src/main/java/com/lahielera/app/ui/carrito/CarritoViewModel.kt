@@ -1,7 +1,9 @@
 package com.lahielera.app.ui.carrito
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lahielera.app.database.ProductoDatabaseDAO
@@ -9,62 +11,42 @@ import com.lahielera.app.model.Producto
 import kotlinx.coroutines.*
 
 class CarritoViewModel (
-    val database: ProductoDatabaseDAO,
+    val db: ProductoDatabaseDAO,
     aplication: Application) : AndroidViewModel(aplication) {
 
     private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
+    var productos = db.getAllProductos()
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
 
-    private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
-
-    private var producto = MutableLiveData<Producto?>()
-
-    //TODO debe ser mutable
-    private lateinit var productos: Array<Producto>  //database.getAllProductos()
-
-    init {
-        initializeProductos()
-    }
-
-    private fun initializeProductos() {
-        uiScope.launch {
-            productos = getProductosFromDatabase()
-        }
-    }
-
-    private suspend fun getProductosFromDatabase(): Array<Producto> {
-        return withContext(Dispatchers.IO) {
-            val producto = database.getAllProductos()
-            producto
-        }
-    }
-
-    fun agregarAlCarrito(producto: Producto) {
-        uiScope.launch {
-            insert(producto)
-        }
-    }
-
-    private suspend fun insert(producto: Producto) {
-        withContext(Dispatchers.IO) {
-            database.insert(producto)
-        }
-    }
-
+    //limpiar carrito
     fun onClear() {
         uiScope.launch {
             clear()
-         }
+        }
     }
 
-    suspend fun clear() {
+    private suspend fun clear() {
         withContext(Dispatchers.IO) {
-            database.clear()
+            db.clear()
+        }
+    }
+
+    fun eliminarDelCarrito(uid: String) {
+        uiScope.launch {
+            db.deleteById(uid)
+        }
+    }
+
+    fun update(producto: Producto) {
+        uiScope.launch {
+            db.update(producto)
         }
     }
 }
+

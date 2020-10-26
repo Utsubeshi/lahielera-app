@@ -4,25 +4,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="carritoViewModel"
-            type="com.lahielera.app.ui.carrito.CarritoViewModel" />
-    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/margin_16dp"
+    android:layout_marginStart="@dimen/margin_16dp"
+
     tools:context=".ui.carrito.CarritoFragment">
 
-    <TextView
-        android:id="@+id/texto_prueba"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCarrito"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text=""
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/total_carrito"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/boton_checkout"
+        style="@style/button_blue_style"
+        android:layout_marginBottom="24dp"
+        android:text="@string/checkout_text"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/total_carrito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/lato_bold"
+        android:text=""
+        android:textColor="@color/azul"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/boton_checkout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rvCarrito" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

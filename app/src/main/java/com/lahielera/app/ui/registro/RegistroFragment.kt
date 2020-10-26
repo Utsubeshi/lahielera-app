@@ -66,7 +66,7 @@ class RegistroFragment : Fragment() {
 
         val password = binding.passRegistro.editText?.text.toString()
         val password2 = binding.pass2Registro.editText?.text.toString()
-        Toast.makeText(requireContext(), "${password} ${password2}", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "${password} ${password2}", Toast.LENGTH_SHORT).show()
 
         if (!validarPassword(password, password2)) {
             valido = false

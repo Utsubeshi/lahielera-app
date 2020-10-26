@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.lahielera.app.R
 import com.lahielera.app.database.ProductoDatabase
 import com.lahielera.app.databinding.FragmentCatalogoBinding
@@ -67,6 +68,10 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
 
     override fun onAddToCart(producto: Producto) {
         viewModel.agregarAlCarro(producto)
+        view?.let {
+            Snackbar.make(it, "Producto agregado: ${producto.marca} ${producto.nombre}", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
     }
 
     override fun onPause() {
