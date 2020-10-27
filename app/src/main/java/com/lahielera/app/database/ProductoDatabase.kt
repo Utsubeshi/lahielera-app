@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.lahielera.app.model.Producto
 
-@Database(entities = [Producto::class], version = 2, exportSchema = false)
+@Database(entities = [Producto::class], version = 3, exportSchema = false)
 abstract class ProductoDatabase: RoomDatabase() {
 
    abstract val productoDatabaseDAO: ProductoDatabaseDAO

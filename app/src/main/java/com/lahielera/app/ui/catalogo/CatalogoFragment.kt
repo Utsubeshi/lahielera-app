@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,14 +17,17 @@ import com.google.android.material.snackbar.Snackbar
 import com.lahielera.app.R
 import com.lahielera.app.database.ProductoDatabase
 import com.lahielera.app.databinding.FragmentCatalogoBinding
+import com.lahielera.app.model.Categoria
 import com.lahielera.app.model.Producto
 
-class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
+class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, CategoriasAdapter.OnCategoriaClickListener {
 
     private lateinit var rvCatalogo: RecyclerView
+    private lateinit var rvCategorias: RecyclerView
     private lateinit var viewModel: CatalogoViewModel
     private lateinit var binding: FragmentCatalogoBinding
     private lateinit var adapter: CatalogoAdapter
+    private lateinit var adapterCategorias: CategoriasAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
             container,
             false)
         loadRecyclerView()
+        loadCartegoriasRV()
         val application = requireNotNull(this.activity).application
         val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
         val viewModelFactory = CatalogoViewModelFactory(dataSource,application)
@@ -46,6 +51,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getProductos()
+        getCategorias()
     }
 
     private fun getProductos() {
@@ -55,11 +61,27 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
             }
         })
     }
+
+    private fun getCategorias() {
+        viewModel.categorias.observe(viewLifecycleOwner, Observer { lista ->
+            if (lista != null && lista.size > 0 ){
+                adapterCategorias.addData(lista)
+            }
+        })
+    }
+
     private fun loadRecyclerView() {
         rvCatalogo = binding.catalogoRv
         rvCatalogo.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         adapter = CatalogoAdapter()
         rvCatalogo.adapter = adapter
+    }
+
+    private fun loadCartegoriasRV() {
+        rvCategorias = binding.categoriasRv
+        rvCategorias.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        adapterCategorias = CategoriasAdapter()
+        rvCategorias.adapter = adapterCategorias
     }
 
     override fun onProductoClick(producto: Producto) {
@@ -82,5 +104,9 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener {
     override fun onResume() {
         super.onResume()
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
+    }
+
+    override fun getCategoria(categoria: String) {
+        TODO("Not yet implemented")
     }
 }

@@ -2,20 +2,19 @@ package com.lahielera.app.ui.catalogo
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lahielera.app.database.ProductoDatabaseDAO
+import com.lahielera.app.model.Categoria
 import com.lahielera.app.model.Producto
 import kotlinx.coroutines.*
 
 class CatalogoViewModel(
 
-    val db: ProductoDatabaseDAO,
-    aplication: Application) : AndroidViewModel(aplication) {
+        val db: ProductoDatabaseDAO,
+        aplication: Application) : AndroidViewModel(aplication) {
 
     private val database = FirebaseFirestore.getInstance()
 
@@ -23,12 +22,17 @@ class CatalogoViewModel(
     val productList : LiveData<ArrayList<Producto>>
         get() = _productList
 
+    private var _categorias = MutableLiveData<ArrayList<Categoria>>()
+    val categorias : LiveData<ArrayList<Categoria>>
+        get() = _categorias
+
     //Agregar al carro - coroutine
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
     init {
       getProductosFromFireStore()
+      getCategiorias()
     }
 
     private fun getProductosFromFireStore() {
@@ -45,6 +49,33 @@ class CatalogoViewModel(
             .addOnFailureListener { exception ->
                 Log.e("CatalogoViewModelError:", "Error getting documents. ", exception)
             }
+    }
+
+    private fun getCategiorias() {
+        uiScope.launch {
+            getCategioriasFromFireStore()
+        }
+    }
+
+    private suspend fun getCategioriasFromFireStore() {
+        database.collection("Categorias").document("VnIRHpSxr4H8ZezsYG19")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document != null){
+                            var categoriasList: ArrayList<Categoria> = arrayListOf()
+                            val categorias: ArrayList<HashMap<String, String>> = document.get("Categorias") as ArrayList<HashMap<String, String>>
+                               for (cat in categorias) {
+                                   var categoria = Categoria()
+                                   categoria.nombre = cat.get("nombre").toString()
+                                   categoria.imgUrl = cat.get("imgUrl").toString()
+                                   categoriasList.add(categoria)
+                               }
+                            _categorias.value = categoriasList
+                        }
+                    }
+                }
     }
 
     override fun onCleared() {
@@ -76,4 +107,8 @@ class CatalogoViewModel(
     private suspend fun update(producto: Producto) {
         db.update(producto)
     }
+
+    data class CategoriasDoc(
+            var categorias: ArrayList<Categoria>
+    ) { }
 }

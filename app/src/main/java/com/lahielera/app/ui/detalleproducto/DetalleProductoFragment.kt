@@ -38,7 +38,6 @@ class DetalleProductoFragment : Fragment() {
         binding.cantidadAumentar.setOnClickListener{
             viewModel.aumentarCantidad()
         }
-
         binding.cantidadReducir.setOnClickListener{
             if (viewModel.cantidad.value!! > 1) {
                 viewModel.reducirCantidad()

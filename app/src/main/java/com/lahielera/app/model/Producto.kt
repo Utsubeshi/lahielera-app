@@ -34,10 +34,13 @@ data class Producto(
         @ColumnInfo(name = "precio")
         var precio: Double = 0.0,
 
+        @ColumnInfo(name = "categoria")
+        var categoria: String = "",
+
         @Ignore
         var descripcion: String? = "") : Serializable {
 
     override fun toString(): String {
-        return "Producto(id=$id, uid=$uid, cantidad=$cantidad, nombre=$nombre, marca=$marca, urlImg=$urlImg, precio=$precio, descripcion=$descripcion)"
+        return "Producto(id=$id, uid=$uid, cantidad=$cantidad, nombre=$nombre, marca=$marca, urlImg=$urlImg, precio=$precio, categoria='$categoria', descripcion=$descripcion)"
     }
 }
