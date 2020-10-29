@@ -10,6 +10,9 @@ import com.lahielera.app.database.ProductoDatabaseDAO
 import com.lahielera.app.model.Categoria
 import com.lahielera.app.model.Producto
 import kotlinx.coroutines.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class CatalogoViewModel(
 
@@ -22,6 +25,8 @@ class CatalogoViewModel(
     val productList : LiveData<ArrayList<Producto>>
         get() = _productList
 
+    private var listaSinFiltrar = MutableLiveData<ArrayList<Producto>>()
+
     private var _categorias = MutableLiveData<ArrayList<Categoria>>()
     val categorias : LiveData<ArrayList<Categoria>>
         get() = _categorias
@@ -30,14 +35,17 @@ class CatalogoViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
+    var _isEmpty = MutableLiveData<Boolean>()
+
     init {
       getProductosFromFireStore()
-      getCategiorias()
+      getCategorias()
+        _isEmpty.value = false
     }
 
     private fun getProductosFromFireStore() {
         var data = arrayListOf<Producto>()
-        database.collection("Productos")
+        database.collection(PRODUCTOS)
             .get()
             .addOnSuccessListener { result ->
                 for (document in  result) {
@@ -45,20 +53,21 @@ class CatalogoViewModel(
                     data.add(producto)
                 }
                 _productList.value = data
+                listaSinFiltrar.value = data
             }
             .addOnFailureListener { exception ->
                 Log.e("CatalogoViewModelError:", "Error getting documents. ", exception)
             }
     }
 
-    private fun getCategiorias() {
+    private fun getCategorias() {
         uiScope.launch {
-            getCategioriasFromFireStore()
+            getCategoriasFromFireStore()
         }
     }
 
-    private suspend fun getCategioriasFromFireStore() {
-        database.collection("Categorias").document("VnIRHpSxr4H8ZezsYG19")
+    private suspend fun getCategoriasFromFireStore() {
+        database.collection("Categorias").document(CATEGORIAS_DOC)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -75,6 +84,33 @@ class CatalogoViewModel(
                             _categorias.value = categoriasList
                         }
                     }
+                }
+    }
+
+    fun productosPorCategoria(categoria: String) {
+        uiScope.launch {
+            if (categoria == "Todo") {
+                getProductosFromFireStore()
+            } else {
+                getProductosByCategoria(categoria)
+            }
+
+        }
+    }
+
+    private fun getProductosByCategoria(categoria: String) {
+        var data = arrayListOf<Producto>()
+        database.collection(PRODUCTOS).whereEqualTo("categoria", categoria)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in  result) {
+                        val producto = document.toObject(Producto::class.java)
+                        data.add(producto)
+                    }
+                    _productList.value = data
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("CatalogoViewModelError:", "Error getting documents. ", exception)
                 }
     }
 
@@ -110,5 +146,26 @@ class CatalogoViewModel(
 
     data class CategoriasDoc(
             var categorias: ArrayList<Categoria>
-    ) { }
+    )
+
+    companion object {
+        private const val CATEGORIAS_DOC = "tgunBfhwCxheO8yTSRWs"
+        private const val PRODUCTOS = "Productos"
+    }
+
+    fun filtrarProductos(newText: String) {
+        val productos = listaSinFiltrar.value
+        val listaFiltrada = arrayListOf<Producto>()
+        if (productos != null) {
+            for (producto in productos ) {
+                val nombre = producto.nombre?.toLowerCase(Locale.getDefault())
+                val marca = producto.marca?.toLowerCase(Locale.getDefault())
+                if (nombre!!.contains(newText) ||  marca!!.contains(newText)){
+                    listaFiltrada.add(producto)
+                }
+            }
+        }
+        _isEmpty.value = listaFiltrada.isEmpty()
+        _productList.value = listaFiltrada
+    }
 }

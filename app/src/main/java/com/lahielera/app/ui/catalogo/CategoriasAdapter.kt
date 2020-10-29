@@ -10,9 +10,10 @@ import com.lahielera.app.model.Categoria
 import com.lahielera.app.model.Producto
 import com.squareup.picasso.Picasso
 
-class CategoriasAdapter() : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>() {
+class CategoriasAdapter : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>() {
 
     private  var data: ArrayList<Categoria>  = arrayListOf<Categoria>()
+    private lateinit var listener: OnCategoriaClickListener
     private val picasso = Picasso.get()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,11 +28,15 @@ class CategoriasAdapter() : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>()
             picasso.load(categoria.imgUrl)
                     .into(binding.categoriaImg)
             binding.categoriaNombre.text = categoria.nombre
+            binding.categoriaImg.setOnClickListener {
+                listener.getCategoria(categoria.nombre)
+            }
         }
     }
 
-    fun addData(listaCategorias: ArrayList<Categoria>) {
+    fun addData(listaCategorias: ArrayList<Categoria>, listener: OnCategoriaClickListener) {
         this.data = listaCategorias
+        this.listener = listener
         notifyDataSetChanged()
     }
 

@@ -37,4 +37,17 @@
     <string name="formato_precio">Total: S/ %.2f</string>
     <string name="formato_cantidad">%d</string>
     <string name="carrito_vacio">El carrito de compras esta vacio</string>
+    <string name="val_buscar">Buscar...</string>
+    <string name="catalogo_busqueda_vacia">No se encontraron productos que coincidan.</string>
+    <string name="perfil_nombres">Nombres</string>
+    <string name="perfil_paterno">Apellidos</string>
+    <string name="perfil_telefono">Celular</string>
+    <string name="perfil_documento">Nº de documento</string>
+    <string name="direcciones_text">Mis direcciones</string>
+
+    <string-array name="documento_tipo">
+        <item>DNI</item>
+        <item>CE</item>
+        <item>Otro</item>
+    </string-array>
 </resources>

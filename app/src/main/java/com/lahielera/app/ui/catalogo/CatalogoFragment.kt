@@ -1,10 +1,15 @@
 package com.lahielera.app.ui.catalogo
 
+import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +24,7 @@ import com.lahielera.app.database.ProductoDatabase
 import com.lahielera.app.databinding.FragmentCatalogoBinding
 import com.lahielera.app.model.Categoria
 import com.lahielera.app.model.Producto
+import java.util.*
 
 class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, CategoriasAdapter.OnCategoriaClickListener {
 
@@ -44,7 +50,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
         val viewModelFactory = CatalogoViewModelFactory(dataSource,application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CatalogoViewModel::class.java)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -52,12 +58,19 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         super.onViewCreated(view, savedInstanceState)
         getProductos()
         getCategorias()
+        onEmptySearch()
+        setHasOptionsMenu(true)
     }
 
     private fun getProductos() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { lista ->
             if (lista != null && lista.size > 0) {
                 adapter.addData(lista, this)
+                hideProgressBar()
+                binding.catalogoRv.isVisible = true
+            } else {
+                showProgressBar()
+                binding.catalogoRv.isVisible = false
             }
         })
     }
@@ -65,7 +78,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
     private fun getCategorias() {
         viewModel.categorias.observe(viewLifecycleOwner, Observer { lista ->
             if (lista != null && lista.size > 0 ){
-                adapterCategorias.addData(lista)
+                adapterCategorias.addData(lista, this)
             }
         })
     }
@@ -82,6 +95,17 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         rvCategorias.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         adapterCategorias = CategoriasAdapter()
         rvCategorias.adapter = adapterCategorias
+    }
+
+    private fun onEmptySearch () {
+        viewModel._isEmpty.observe(viewLifecycleOwner, Observer { estaVacio ->
+
+                with(binding) {
+                    catalogoVacio.isVisible = estaVacio
+                    progressBarCatalogo.isVisible = !estaVacio
+                }
+
+        })
     }
 
     override fun onProductoClick(producto: Producto) {
@@ -101,12 +125,40 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        val searchItem = menu.findItem(R.id.action_seach)
+        val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.i("Submit","Llego al querysubmit")
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                //Log.i("Change","Llego al querytextchange")
+                val query = newText.toLowerCase(Locale.getDefault())
+                val productos = viewModel.filtrarProductos(query)
+                return true
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onResume() {
         super.onResume()
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
     }
 
     override fun getCategoria(categoria: String) {
-        TODO("Not yet implemented")
+        viewModel.productosPorCategoria(categoria)
     }
+
+    private fun showProgressBar() {
+        binding.progressBarCatalogo.isVisible = true
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarCatalogo.isVisible = false
+    }
+
 }

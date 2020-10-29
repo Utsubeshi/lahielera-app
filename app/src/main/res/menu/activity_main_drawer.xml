@@ -7,21 +7,22 @@
 
         <item
             android:id="@+id/nav_catalogo"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_catalogo"
             android:title="@string/catalogo_fragment" />
 
         <item
             android:id="@+id/nav_pedidos"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_pedidos"
             android:title="@string/pedidos_fragment" />
 
         <item
             android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_account"
             android:title="@string/perfil_fragment" />
 
         <item
             android:id="@+id/cerrar_session"
+            android:icon="@drawable/ic_logout"
             android:title="@string/cerrar_session_text" />
     </group>
 </menu>

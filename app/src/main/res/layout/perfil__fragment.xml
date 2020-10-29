@@ -1,13 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.perfil.Perfil_Fragment">
 
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="perfilViewModel"
+            type="com.lahielera.app.ui.perfil.PerfilViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        tools:context=".ui.perfil.Perfil_Fragment">
 
-</FrameLayout>
+        <Spinner
+            android:id="@+id/spinner_documentos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/documento_perfil"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/documento_perfil" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/profile_pic"
+
+            app:layout_constraintBottom_toTopOf="@+id/nombres_perfil"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nombres_perfil"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/azul"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
+            app:boxCornerRadiusTopEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusTopStart="@dimen/corner_25dp"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/apellidos_perfil"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:startIconTint="@color/azul">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/perfil_nombres"
+                android:text="@{perfilViewModel.usuario.nombres}"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/apellidos_perfil"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/azul"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
+            app:boxCornerRadiusTopEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusTopStart="@dimen/corner_25dp"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/celular_perfil"
+            app:layout_constraintTop_toBottomOf="@+id/nombres_perfil"
+            app:startIconTint="@color/azul">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/perfil_paterno"
+                android:text="@{perfilViewModel.usuario.apellidos}"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/celular_perfil"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/azul"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
+            app:boxCornerRadiusTopEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusTopStart="@dimen/corner_25dp"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/documento_perfil"
+            app:layout_constraintTop_toBottomOf="@+id/apellidos_perfil"
+            app:startIconTint="@color/azul">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/perfil_telefono"
+                android:text="@{perfilViewModel.usuario.celular}"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/documento_perfil"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColorHint="@color/azul"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
+            app:boxCornerRadiusTopEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusTopStart="@dimen/corner_25dp"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/boton_guardar_perfil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinner_documentos"
+            app:layout_constraintTop_toBottomOf="@+id/celular_perfil"
+            app:startIconTint="@color/azul">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/perfil_documento"
+                android:text="@{perfilViewModel.usuario.documento}"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+
+
+            android:id="@+id/boton_guardar_perfil"
+            style="@style/button_blue_style"
+            android:layout_marginBottom="24dp"
+            android:text="@string/register_text"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit_location"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/direcciones_text"
+            android:textColor="@color/text_gray"
+            app:layout_constraintBottom_toTopOf="@+id/nombres_perfil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

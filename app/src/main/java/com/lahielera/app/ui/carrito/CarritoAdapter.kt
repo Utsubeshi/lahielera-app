@@ -9,7 +9,7 @@ import com.lahielera.app.databinding.ItemCarritoBinding
 import com.lahielera.app.model.Producto
 import com.squareup.picasso.Picasso
 
-class CarritoAdapter(): RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
+class CarritoAdapter : RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
 
     private var data: List<Producto> = listOf()
     private val picasso = Picasso.get()
@@ -38,8 +38,6 @@ class CarritoAdapter(): RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
                     producto.cantidad = producto.cantidad.minus(1)
                     listener.reducirCantidad(producto)
             }
-
-
         }
     }
 

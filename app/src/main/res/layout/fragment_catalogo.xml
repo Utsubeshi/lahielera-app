@@ -40,6 +40,27 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <ProgressBar
+            android:id="@+id/progress_bar_catalogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categorias_rv" />
+
+        <TextView
+            android:id="@+id/catalogo_vacio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/catalogo_busqueda_vacia"
+            android:textColor="@color/text_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar_catalogo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
