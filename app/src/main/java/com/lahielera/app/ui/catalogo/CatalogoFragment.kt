@@ -58,19 +58,30 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         super.onViewCreated(view, savedInstanceState)
         getProductos()
         getCategorias()
-        onEmptySearch()
         setHasOptionsMenu(true)
+        isEmptySearch()
+        isLoading()
     }
 
     private fun getProductos() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { lista ->
-            if (lista != null && lista.size > 0) {
-                adapter.addData(lista, this)
-                hideProgressBar()
-                binding.catalogoRv.isVisible = true
-            } else {
+            if (lista != null && lista.size > 0) adapter.addData(lista, this)
+        })
+    }
+
+    private fun isEmptySearch() {
+        viewModel.isEmpty.observe(viewLifecycleOwner, Observer { isEmpty ->
+            binding.catalogoVacio.isVisible = isEmpty
+            binding.catalogoRv.isVisible = !isEmpty
+        })
+    }
+
+    private fun isLoading() {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
                 showProgressBar()
-                binding.catalogoRv.isVisible = false
+            } else {
+                hideProgressBar()
             }
         })
     }
@@ -92,21 +103,13 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
 
     private fun loadCartegoriasRV() {
         rvCategorias = binding.categoriasRv
-        rvCategorias.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        rvCategorias.layoutManager = LinearLayoutManager(this.context,
+                LinearLayoutManager.HORIZONTAL,
+                false)
         adapterCategorias = CategoriasAdapter()
         rvCategorias.adapter = adapterCategorias
     }
 
-    private fun onEmptySearch () {
-        viewModel._isEmpty.observe(viewLifecycleOwner, Observer { estaVacio ->
-
-                with(binding) {
-                    catalogoVacio.isVisible = estaVacio
-                    progressBarCatalogo.isVisible = !estaVacio
-                }
-
-        })
-    }
 
     override fun onProductoClick(producto: Producto) {
         findNavController().navigate(CatalogoFragmentDirections.actionNavCatalogoToDetalleProductoFragment(producto))

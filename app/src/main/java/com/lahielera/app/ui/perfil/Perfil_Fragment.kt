@@ -10,11 +10,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.encoders.ObjectEncoder
 import com.google.firebase.ktx.Firebase
 import com.lahielera.app.R
 import com.lahielera.app.databinding.PerfilFragmentBinding
@@ -46,15 +49,17 @@ class Perfil_Fragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerDocumentos.adapter = adapter
         }
-
-
-
         //
+        hideProgressBar()
         auth = Firebase.auth
         binding.botonGuardarPerfil.setOnClickListener {
+            showProgressBar()
             saveUserData()
         }
         binding.lifecycleOwner = this
+        binding.botonDirecciones.setOnClickListener {
+            moveToDirecciones()
+        }
         return binding.root
     }
 
@@ -64,6 +69,15 @@ class Perfil_Fragment : Fragment() {
         binding.perfilViewModel = viewModel
         onSaveUserEvent()
         setTipoDocumento()
+        viewModel.isVisible.observe(viewLifecycleOwner, Observer {isEnabled ->
+            binding.botonDirecciones.isEnabled = isEnabled
+            if (isEnabled) {
+                binding.botonDirecciones.alpha = 1.0F
+            } else {
+                binding.botonDirecciones.alpha = 0.2F
+            }
+
+        })
     }
 
     private fun onSaveUserEvent() {
@@ -73,6 +87,7 @@ class Perfil_Fragment : Fragment() {
                     Snackbar.make(it, "Datos guardados exitosamente", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show()
                 }
+                hideProgressBar()
             }
         })
     }
@@ -94,7 +109,7 @@ class Perfil_Fragment : Fragment() {
             usuario.documento = documentoPerfil.editText?.text.toString()
             usuario.tipoDocumento = spinnerDocumentos.selectedItemPosition
         }
-        viewModel.saveUserOnFireStore(usuario)
+        viewModel.saveUser(usuario)
     }
 
     private fun setTipoDocumento() {
@@ -103,5 +118,25 @@ class Perfil_Fragment : Fragment() {
         })
     }
 
+    private fun moveToDirecciones() {
+        findNavController().navigate(Perfil_FragmentDirections.actionNavPerfilToUbicacionesFragment())
+    }
 
+    private fun showProgressBar() {
+        binding.progressBarPerfil.isVisible = true
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarPerfil.isVisible = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.disableToast()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.disableToast()
+    }
 }

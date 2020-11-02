@@ -35,7 +35,15 @@ class CatalogoViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
-    var _isEmpty = MutableLiveData<Boolean>()
+    //var _isEmpty = MutableLiveData<Boolean>()
+
+    private var _isLoading = MutableLiveData<Boolean>()
+    val isLoading : LiveData<Boolean>
+        get() = _isLoading
+
+    private var _isEmpty = MutableLiveData<Boolean>()
+    val isEmpty : LiveData<Boolean>
+        get() = _isEmpty
 
     init {
       getProductosFromFireStore()
@@ -43,7 +51,9 @@ class CatalogoViewModel(
         _isEmpty.value = false
     }
 
+
     private fun getProductosFromFireStore() {
+        _isLoading.value = true
         var data = arrayListOf<Producto>()
         database.collection(PRODUCTOS)
             .get()
@@ -54,6 +64,7 @@ class CatalogoViewModel(
                 }
                 _productList.value = data
                 listaSinFiltrar.value = data
+                _isLoading.value = false
             }
             .addOnFailureListener { exception ->
                 Log.e("CatalogoViewModelError:", "Error getting documents. ", exception)
@@ -90,15 +101,15 @@ class CatalogoViewModel(
     fun productosPorCategoria(categoria: String) {
         uiScope.launch {
             if (categoria == "Todo") {
-                getProductosFromFireStore()
+                _productList.postValue(listaSinFiltrar.value)
             } else {
                 getProductosByCategoria(categoria)
             }
-
         }
     }
 
-    private fun getProductosByCategoria(categoria: String) {
+    private suspend fun getProductosByCategoria(categoria: String) {
+        _isLoading.postValue(true)
         var data = arrayListOf<Producto>()
         database.collection(PRODUCTOS).whereEqualTo("categoria", categoria)
                 .get()
@@ -107,7 +118,8 @@ class CatalogoViewModel(
                         val producto = document.toObject(Producto::class.java)
                         data.add(producto)
                     }
-                    _productList.value = data
+                    _productList.postValue(data)
+                    _isLoading.postValue(false)
                 }
                 .addOnFailureListener { exception ->
                     Log.e("CatalogoViewModelError:", "Error getting documents. ", exception)

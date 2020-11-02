@@ -24,7 +24,12 @@
         android:id="@+id/nav_perfil"
         android:name="com.lahielera.app.ui.perfil.Perfil_Fragment"
         android:label="@string/perfil_fragment"
-        tools:layout="@layout/perfil__fragment" />
+        tools:layout="@layout/perfil__fragment" >
+        <action
+            android:id="@+id/action_nav_perfil_to_ubicacionesFragment"
+            app:destination="@id/nav_ubicaciones"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/nav_detalle_producto"
         android:name="com.lahielera.app.ui.detalleproducto.DetalleProductoFragment"
@@ -38,4 +43,24 @@
         android:name="com.lahielera.app.ui.carrito.CarritoFragment"
         android:label="@string/carrito_label"
         tools:layout="@layout/carrito_fragment" />
+    <fragment
+        android:id="@+id/nav_ubicaciones"
+        android:name="com.lahielera.app.ui.direcciones.UbicacionesFragment"
+        android:label="UbicacionesFragment" >
+        <action
+            android:id="@+id/action_nav_ubicaciones_to_nav_direccion"
+            app:destination="@id/nav_direccion"
+            app:popUpTo="@id/nav_ubicaciones"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_direccion"
+        android:name="com.lahielera.app.ui.direcciones.direccion.DireccionFragment"
+        android:label="DireccionFragment" >
+        <action
+            android:id="@+id/action_nav_direccion_to_nav_ubicaciones"
+            app:destination="@id/nav_ubicaciones"
+            app:popUpTo="@id/nav_direccion"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

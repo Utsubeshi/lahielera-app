@@ -44,6 +44,18 @@
     <string name="perfil_telefono">Celular</string>
     <string name="perfil_documento">Nº de documento</string>
     <string name="direcciones_text">Mis direcciones</string>
+    <string name="direcciones_label">Agrega o escoge una dirección</string>
+    <string name="agregar_direccion_text">Agregar direccion</string>
+    <string name="direccion_text">Avenida/Jiron/Calle</string>
+    <string name="referencia_text">Referencia</string>
+    <string name="distrito_text">Distrito</string>
+    <string name="provincia_text">Provincia</string>
+    <string name="departamento_text">Departamento</string>
+    <string name="guardar_text">Guardar</string>
+    <string name="direciones_fragment">Mis direcciones</string>
+    <string name="nueva_direccion">Nueva dirección</string>
+    <string name="sin_direcciones">No tienes direcciones registradas</string>
+    <string name="numero_text">Número</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>

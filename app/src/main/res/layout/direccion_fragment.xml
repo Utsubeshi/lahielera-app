@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="perfilViewModel"
-            type="com.lahielera.app.ui.perfil.PerfilViewModel" />
-    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,41 +12,30 @@
         tools:context=".ui.perfil.Perfil_Fragment">
 
         <ProgressBar
-            android:id="@+id/progress_bar_perfil"
+            android:id="@+id/progress_bar_direccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateDrawable="@drawable/progress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteX="166dp"
+            tools:layout_editor_absoluteY="342dp" />
 
-        <Spinner
-            android:id="@+id/spinner_documentos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/documento_perfil"
-            app:layout_constraintEnd_toStartOf="@+id/documento_perfil"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/documento_perfil" />
 
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:src="@drawable/profile_pic"
-
-            app:layout_constraintBottom_toTopOf="@+id/nombres_perfil"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:id="@+id/imageView4"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_undraw_location_review_dmxd"
+            app:layout_constraintBottom_toTopOf="@+id/location_direccion"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nombres_perfil"
+            android:id="@+id/location_direccion"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:textColorHint="@color/azul"
             app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
@@ -62,23 +44,45 @@
             app:boxCornerRadiusTopStart="@dimen/corner_25dp"
             app:boxStrokeColor="@color/azul"
             app:hintTextColor="@color/azul"
-            app:layout_constraintBottom_toTopOf="@+id/apellidos_perfil"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/location_referencia"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:startIconTint="@color/azul">
+            app:layout_constraintVertical_chainStyle="packed">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/perfil_nombres"
-                android:inputType="text"
-                android:text="@{perfilViewModel.usuario.nombres}" />
+                android:hint="@string/direccion_text"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/apellidos_perfil"
+            android:id="@+id/location_numero"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/azul"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
+            app:boxCornerRadiusTopEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusTopStart="@dimen/corner_25dp"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul"
+            app:layout_constraintBottom_toBottomOf="@+id/location_direccion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/location_direccion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/numero_text"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/location_referencia"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -90,22 +94,21 @@
             app:boxCornerRadiusTopStart="@dimen/corner_25dp"
             app:boxStrokeColor="@color/azul"
             app:hintTextColor="@color/azul"
-            app:layout_constraintBottom_toTopOf="@+id/celular_perfil"
+            app:layout_constraintBottom_toTopOf="@+id/location_distrito"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nombres_perfil"
+            app:layout_constraintTop_toBottomOf="@+id/location_direccion"
             app:startIconTint="@color/azul">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/perfil_paterno"
-                android:inputType="text"
-                android:text="@{perfilViewModel.usuario.apellidos}" />
+                android:hint="@string/referencia_text"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/celular_perfil"
+            android:id="@+id/location_distrito"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -117,26 +120,25 @@
             app:boxCornerRadiusTopStart="@dimen/corner_25dp"
             app:boxStrokeColor="@color/azul"
             app:hintTextColor="@color/azul"
-            app:layout_constraintBottom_toTopOf="@+id/documento_perfil"
+            app:layout_constraintBottom_toTopOf="@+id/location_provincia"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apellidos_perfil"
+            app:layout_constraintTop_toBottomOf="@+id/location_referencia"
             app:startIconTint="@color/azul">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/perfil_telefono"
-                android:inputType="phone"
-                android:text="@{perfilViewModel.usuario.celular}" />
+                android:hint="@string/distrito_text"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/documento_perfil"
+            android:id="@+id/location_provincia"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:textColorHint="@color/azul"
             app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
             app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
@@ -144,57 +146,63 @@
             app:boxCornerRadiusTopStart="@dimen/corner_25dp"
             app:boxStrokeColor="@color/azul"
             app:hintTextColor="@color/azul"
-            app:layout_constraintBottom_toTopOf="@+id/boton_guardar_perfil"
+            app:layout_constraintBottom_toTopOf="@+id/location_departamento"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/spinner_documentos"
-            app:layout_constraintTop_toBottomOf="@+id/celular_perfil"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_distrito"
             app:startIconTint="@color/azul">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/perfil_documento"
-                android:inputType="number"
-                android:text="@{perfilViewModel.usuario.documento}" />
+                android:hint="@string/provincia_text"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/location_departamento"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColorHint="@color/azul"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusBottomStart="@dimen/corner_25dp"
+            app:boxCornerRadiusTopEnd="@dimen/corner_25dp"
+            app:boxCornerRadiusTopStart="@dimen/corner_25dp"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/boton_guardar_direccion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_provincia"
+            app:startIconTint="@color/azul">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/departamento_text"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
 
 
-            android:id="@+id/boton_guardar_perfil"
+            android:id="@+id/boton_guardar_direccion"
             style="@style/button_blue_style"
             android:layout_marginBottom="24dp"
-            android:text="@string/register_text"
+            android:text="@string/guardar_text"
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/boton_direcciones"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_edit_location"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
-            android:text="@string/direcciones_text"
-            android:textColor="@color/text_gray"
-            app:layout_constraintBottom_toTopOf="@+id/nombres_perfil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/boton_direcciones" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
