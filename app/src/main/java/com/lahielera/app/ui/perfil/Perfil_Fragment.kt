@@ -39,6 +39,7 @@ class Perfil_Fragment : Fragment() {
                 container,
                 false
         )
+        showProgressBar()
         //cargar spinner
         ArrayAdapter.createFromResource(
                 requireContext(),
@@ -49,8 +50,6 @@ class Perfil_Fragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerDocumentos.adapter = adapter
         }
-        //
-        hideProgressBar()
         auth = Firebase.auth
         binding.botonGuardarPerfil.setOnClickListener {
             showProgressBar()
@@ -76,7 +75,9 @@ class Perfil_Fragment : Fragment() {
             } else {
                 binding.botonDirecciones.alpha = 0.2F
             }
-
+        })
+        viewModel.usuario.observe(viewLifecycleOwner, Observer {usuario ->
+            hideProgressBar()
         })
     }
 

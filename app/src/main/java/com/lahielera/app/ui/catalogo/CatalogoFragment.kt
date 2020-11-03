@@ -1,16 +1,16 @@
 package com.lahielera.app.ui.catalogo
 
+import android.app.Activity
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,7 +22,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.lahielera.app.R
 import com.lahielera.app.database.ProductoDatabase
 import com.lahielera.app.databinding.FragmentCatalogoBinding
-import com.lahielera.app.model.Categoria
 import com.lahielera.app.model.Producto
 import java.util.*
 
@@ -36,19 +35,19 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
     private lateinit var adapterCategorias: CategoriasAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_catalogo,
-            container,
-            false)
+                inflater,
+                R.layout.fragment_catalogo,
+                container,
+                false)
         loadRecyclerView()
         loadCartegoriasRV()
         val application = requireNotNull(this.activity).application
         val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
-        val viewModelFactory = CatalogoViewModelFactory(dataSource,application)
+        val viewModelFactory = CatalogoViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CatalogoViewModel::class.java)
         binding.lifecycleOwner = this
         return binding.root
@@ -65,7 +64,10 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
 
     private fun getProductos() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { lista ->
-            if (lista != null && lista.size > 0) adapter.addData(lista, this)
+            //if (lista != null && lista.size > 0) {
+            adapter.addData(lista, this)
+            rvCatalogo.invalidate()
+            // }
         })
     }
 
@@ -88,7 +90,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
 
     private fun getCategorias() {
         viewModel.categorias.observe(viewLifecycleOwner, Observer { lista ->
-            if (lista != null && lista.size > 0 ){
+            if (lista != null && lista.size > 0) {
                 adapterCategorias.addData(lista, this)
             }
         })
@@ -132,11 +134,18 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         inflater.inflate(R.menu.main, menu)
         val searchItem = menu.findItem(R.id.action_seach)
         val searchView: SearchView = searchItem.actionView as SearchView
+
+        //cerrar el teclado al precionar la X en el searchview
+        val closeButton = searchView.findViewById<View>(androidx.appcompat.R.id.search_close_btn)
+        closeButton.setOnClickListener {
+            searchItem.collapseActionView()
+        }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.i("Submit","Llego al querysubmit")
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 //Log.i("Change","Llego al querytextchange")
                 val query = newText.toLowerCase(Locale.getDefault())
@@ -164,4 +173,17 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         binding.progressBarCatalogo.isVisible = false
     }
 
+    //Cerrar teclado en fragments o activitys
+//    fun Fragment.hideKeyboard() {
+//        view?.let { activity?.hideKeyboard(it) }
+//    }
+
+//    fun Activity.hideKeyboard() {
+//        hideKeyboard(currentFocus ?: View(this))
+//    }
+//
+//    fun Context.hideKeyboard(view: View) {
+//        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
 }

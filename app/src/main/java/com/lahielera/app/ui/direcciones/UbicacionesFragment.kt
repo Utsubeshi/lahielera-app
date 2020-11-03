@@ -35,7 +35,8 @@ class UbicacionesFragment : Fragment(), UbicacionesAdapter.OnDireccionClickListe
         loadRecyclerView()
         showProgressBar()
         binding.botonAgregarDireccion.setOnClickListener {
-            findNavController().navigate(UbicacionesFragmentDirections.actionNavUbicacionesToNavDireccion())
+            findNavController().navigate(UbicacionesFragmentDirections
+                    .actionNavUbicacionesToNavDireccion())
         }
         binding.lifecycleOwner = this
         return binding.root
@@ -71,13 +72,6 @@ class UbicacionesFragment : Fragment(), UbicacionesAdapter.OnDireccionClickListe
         })
     }
 
-//    private fun onEmptyList (isVisible: Boolean) {
-//        with(binding) {
-//            imgSinDireciones.isVisible = isVisible
-//            textSinDirecciones.isVisible = isVisible
-//        }
-//    }
-
     override fun onResume() {
         super.onResume()
         getDirecciones()
@@ -87,13 +81,13 @@ class UbicacionesFragment : Fragment(), UbicacionesAdapter.OnDireccionClickListe
         viewModel.setPredeterminada(direccion)
     }
 
-
     override fun eliminarDireccion(id: String) {
         viewModel.eliminar(id)
     }
 
     override fun editar(direccion: Direccion) {
-        findNavController().navigate(UbicacionesFragmentDirections.actionNavUbicacionesToNavDireccion(direccion))
+        findNavController().navigate(UbicacionesFragmentDirections
+                .actionNavUbicacionesToNavDireccion(direccion))
     }
 
     private fun showProgressBar() {
