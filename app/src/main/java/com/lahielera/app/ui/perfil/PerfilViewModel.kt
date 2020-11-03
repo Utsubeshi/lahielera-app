@@ -40,6 +40,7 @@ class PerfilViewModel : ViewModel() {
         userId = auth.currentUser!!.uid
         getUser()
         _onSaveSucess.value = false
+        _isVisible.value = true
     }
 
     fun saveUser(usuario: Usuario) {

@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lahielera.app.R
 import com.lahielera.app.databinding.UbicacionesFragmentBinding
+import com.lahielera.app.model.Direccion
 
-class UbicacionesFragment : Fragment() {
+class UbicacionesFragment : Fragment(), UbicacionesAdapter.OnDireccionClickListener {
 
     private lateinit var viewModel: UbicacionesViewModel
     private lateinit var binding: UbicacionesFragmentBinding
@@ -32,9 +33,8 @@ class UbicacionesFragment : Fragment() {
                 false
         )
         loadRecyclerView()
-
+        showProgressBar()
         binding.botonAgregarDireccion.setOnClickListener {
-            //moveToNuevaDireccion()
             findNavController().navigate(UbicacionesFragmentDirections.actionNavUbicacionesToNavDireccion())
         }
         binding.lifecycleOwner = this
@@ -60,24 +60,57 @@ class UbicacionesFragment : Fragment() {
     private fun getDirecciones() {
         viewModel.direcionesList.observe(viewLifecycleOwner, Observer { lista ->
             if (lista.isNullOrEmpty()) {
-                onEmptyList(true)
+                //onEmptyList(true)
+                hideProgressBar()
            } else {
-                adapter.addData(lista)
+                adapter.addData(lista, this)
                 adapter.notifyDataSetChanged()
-                onEmptyList(false)
+                //onEmptyList(false)
+                hideAll()
             }
         })
     }
 
-    private fun onEmptyList (isVisible: Boolean) {
-        with(binding) {
-            imgSinDireciones.isVisible = isVisible
-            textSinDirecciones.isVisible = isVisible
-        }
-    }
+//    private fun onEmptyList (isVisible: Boolean) {
+//        with(binding) {
+//            imgSinDireciones.isVisible = isVisible
+//            textSinDirecciones.isVisible = isVisible
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
         getDirecciones()
+    }
+
+    override fun setPredeterminada(direccion: Direccion) {
+        viewModel.setPredeterminada(direccion)
+    }
+
+
+    override fun eliminarDireccion(id: String) {
+        viewModel.eliminar(id)
+    }
+
+    override fun editar(direccion: Direccion) {
+        findNavController().navigate(UbicacionesFragmentDirections.actionNavUbicacionesToNavDireccion(direccion))
+    }
+
+    private fun showProgressBar() {
+        binding.progressBarPerfil.isVisible = true
+        binding.imgSinDireciones.isVisible = false
+        binding.textSinDirecciones.isVisible = false
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarPerfil.isVisible = false
+        binding.imgSinDireciones.isVisible = true
+        binding.textSinDirecciones.isVisible = true
+    }
+
+    private fun hideAll() {
+        binding.progressBarPerfil.isVisible = false
+        binding.imgSinDireciones.isVisible = false
+        binding.textSinDirecciones.isVisible = false
     }
 }

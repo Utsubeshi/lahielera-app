@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.lahielera.app.R
 import com.lahielera.app.databinding.DireccionFragmentBinding
@@ -19,6 +20,7 @@ class DireccionFragment : Fragment() {
 
     private lateinit var binding: DireccionFragmentBinding
     private lateinit var viewModel: DireccionViewModel
+    private var direccion = Direccion()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,9 +31,18 @@ class DireccionFragment : Fragment() {
                 false
         )
         hideProgressBar()
+        //Databinding de la direccion si es que llego alguna
+        val direccionFragmentArgs by navArgs<DireccionFragmentArgs>()
+        if (direccionFragmentArgs.direccion != null) {
+            direccion = direccionFragmentArgs.direccion!!
+            binding.direccion = direccion
+        }
+        binding.lifecycleOwner = this
+        //boton que guarda o actualiza la data de la direccion
         binding.botonGuardarDireccion.setOnClickListener {
             showProgressBar()
             saveDireccion()
+            binding.botonGuardarDireccion.isEnabled = false
         }
         return binding.root
     }
@@ -71,8 +82,15 @@ class DireccionFragment : Fragment() {
             direccion.distrito = locationDistrito.editText?.text.toString()
             direccion.provincia = locationProvincia.editText?.text.toString()
             direccion.departamento = locationDepartamento.editText?.text.toString()
+            direccion.numero = locationNumero.editText?.text.toString()
         }
-        viewModel.saveDirecion(direccion)
+        if (this.direccion.id.isEmpty()) {
+            viewModel.saveDirecion(direccion)
+        } else {
+            direccion.id = this.direccion.id
+            viewModel.updateDireccion(direccion)
+        }
+
     }
 
     private fun moveToMisDirecciones() {

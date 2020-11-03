@@ -56,6 +56,10 @@
     <string name="nueva_direccion">Nueva dirección</string>
     <string name="sin_direcciones">No tienes direcciones registradas</string>
     <string name="numero_text">Número</string>
+    <string name="action_predeterminada">Predeterminada</string>
+    <string name="action_elimiar">Eliminar</string>
+    <string name="_8942">⋮</string>
+    <string name="action_editar">Editar</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>

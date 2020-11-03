@@ -6,4 +6,5 @@ data class Usuario (
         var tipoDocumento: Int = 0,
         var documento: String  = "",
         var celular: String  = "",
+        var direccion: Direccion = Direccion()
 )

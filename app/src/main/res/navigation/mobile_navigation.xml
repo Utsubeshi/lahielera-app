@@ -62,5 +62,10 @@
             app:destination="@id/nav_ubicaciones"
             app:popUpTo="@id/nav_direccion"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="direccion"
+            app:argType="com.lahielera.app.model.Direccion"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

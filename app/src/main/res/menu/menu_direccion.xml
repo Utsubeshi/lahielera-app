@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/action_predeterminada"
+            android:title="@string/action_predeterminada"/>
+    <item
+        android:id="@+id/action_editar"
+        android:title="@string/action_editar"/>
+    <item
+        android:id="@+id/action_eliminar"
+        android:title="@string/action_elimiar"/>
+
+
+
+</menu>

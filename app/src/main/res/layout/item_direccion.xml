@@ -33,10 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/lato_bold"
-        android:text="@{direccion.calle}"
+        android:text="@{direccion.getDireccionCompleta()}"
         android:textColor="@color/azul"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/direccion_predeterminada"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,15 +47,41 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/lato_bold"
         android:text="@{direccion.distrito}"
         android:textColor="@color/text_gray"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/direccion_predeterminada"
         app:layout_constraintStart_toStartOf="@+id/direccion_completa"
         app:layout_constraintTop_toBottomOf="@+id/direccion_completa"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/textViewOptions"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:text="@string/_8942"
+        android:textAppearance="?android:textAppearanceLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/direccion_predeterminada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewOptions"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_direccion_predeterminada" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
