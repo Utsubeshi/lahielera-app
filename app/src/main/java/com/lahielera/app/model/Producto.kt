@@ -12,7 +12,7 @@ import java.io.Serializable
 data class Producto(
 
         @PrimaryKey(autoGenerate = true)
-    @Exclude
+        @Exclude
         var id: Long = 0L,
 
         @ColumnInfo(name = "idFirebase")

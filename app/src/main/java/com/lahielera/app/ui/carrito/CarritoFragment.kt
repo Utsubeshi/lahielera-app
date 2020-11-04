@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -36,7 +37,7 @@ class CarritoFragment : Fragment(), CarritoAdapter.OnCarritoItemClickListener {
         val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
         val viewModelFactory = CarritoViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CarritoViewModel::class.java)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         viewModel.productos.observe(viewLifecycleOwner, Observer { productos ->
             if (!productos.isNullOrEmpty()) {
                 adapter.addData(productos, this)
@@ -46,6 +47,9 @@ class CarritoFragment : Fragment(), CarritoAdapter.OnCarritoItemClickListener {
                 binding.totalCarrito.text = getString(R.string.carrito_vacio)
             }
         })
+        binding.botonCheckout.setOnClickListener {
+            findNavController().navigate(CarritoFragmentDirections.actionNavCarritoToCheckoutFragment())
+        }
         return binding.root
     }
 

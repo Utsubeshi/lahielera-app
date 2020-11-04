@@ -60,6 +60,11 @@
     <string name="action_elimiar">Eliminar</string>
     <string name="_8942">⋮</string>
     <string name="action_editar">Editar</string>
+    <string name="enviar_text">ENVIAR A:</string>
+    <string name="entregar_text">DESTINATARIO:</string>
+    <string name="total_text">PAGO:</string>
+    <string name="checkout_pay_btn">confirmar</string>
+    <string name="checkout_title">Resumen del pedido</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>

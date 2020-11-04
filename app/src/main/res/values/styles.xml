@@ -31,4 +31,25 @@
         <item name="boxStrokeColor">@color/text_gray</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
+
+    <style name="titulo_checkout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <style name="detalle_style">
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textColor">@color/azul</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="detalle2_style">
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
