@@ -35,6 +35,9 @@
     <string name="carrito_label">Mi carrito</string>
     <string name="checkout_text">Checkout</string>
     <string name="formato_precio">Total: S/ %.2f</string>
+    <string name="formato_subtotal">Pedido:  S/ %.2f</string>
+    <string name="formato_total">TOTAL A PAGAR: S/ %.2f</string>
+    <string name="formato_envio">Envio:    S/ %.2f</string>
     <string name="formato_cantidad">%d</string>
     <string name="carrito_vacio">El carrito de compras esta vacio</string>
     <string name="val_buscar">Buscar...</string>
@@ -65,6 +68,10 @@
     <string name="total_text">PAGO:</string>
     <string name="checkout_pay_btn">confirmar</string>
     <string name="checkout_title">Resumen del pedido</string>
+    <string name="checkout_direccion">Agregue una direccion</string>
+    <string name="cliente_checkout">Agregue sus datos</string>
+    <string name="pago_efectivo">En efectivo</string>
+    <string name="pago_tarjeta">Con tarjeta</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>

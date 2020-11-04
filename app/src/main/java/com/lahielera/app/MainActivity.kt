@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -19,6 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -27,6 +29,8 @@ import com.google.firebase.ktx.Firebase
 import com.lahielera.app.databinding.NavHeaderMainBinding
 import com.lahielera.app.ui.catalogo.CatalogoFragmentDirections
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val picasso = Picasso.get()
     private lateinit var headerView: View
+    //private lateinit var drawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,10 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        //getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        //
+
+        //
         auth = Firebase.auth
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -50,12 +59,13 @@ class MainActivity : AppCompatActivity() {
         userProfileOnMenu(navView)
         val navController = findNavController(R.id.nav_host_fragment)
         val fab: FloatingActionButton = findViewById(R.id.fab)
+
         fab.setOnClickListener { view ->
             navController.navigate(CatalogoFragmentDirections.actionNavCatalogoToCarritoFragment())
         }
 
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_carrito, R.id.nav_catalogo, R.id.nav_pedidos, R.id.nav_perfil), drawerLayout)
+                R.id.nav_carrito, R.id.nav_catalogo, R.id.nav_pedidos), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -85,6 +95,5 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
         return true
     }
-
 
 }

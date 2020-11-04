@@ -29,6 +29,12 @@
             android:id="@+id/action_nav_perfil_to_ubicacionesFragment"
             app:destination="@id/nav_ubicaciones"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="isFromCheckout"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_nav_perfil_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_detalle_producto"
@@ -56,6 +62,9 @@
             app:destination="@id/nav_direccion"
             app:popUpTo="@id/nav_ubicaciones"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="isFromCheckout"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/nav_direccion"
@@ -71,10 +80,23 @@
             app:argType="com.lahielera.app.model.Direccion"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="isFromCheckout"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/checkoutFragment"
         android:name="com.lahielera.app.ui.checkout.CheckoutFragment"
         android:label="@string/checkout_title"
-        tools:layout="@layout/checkout_fragment" />
+        tools:layout="@layout/checkout_fragment" >
+        <action
+            android:id="@+id/action_checkoutFragment_to_nav_perfil"
+            app:destination="@id/nav_perfil" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_nav_ubicaciones"
+            app:destination="@id/nav_ubicaciones" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_nav_direccion"
+            app:destination="@id/nav_direccion" />
+    </fragment>
 </navigation>

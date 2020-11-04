@@ -7,4 +7,8 @@ data class Usuario (
         var documento: String  = "",
         var celular: String  = "",
         var direccion: Direccion = Direccion()
-)
+) {
+    fun getNombreCompleto(): String {
+        return "${this.nombres} ${this.apellidos}"
+    }
+}

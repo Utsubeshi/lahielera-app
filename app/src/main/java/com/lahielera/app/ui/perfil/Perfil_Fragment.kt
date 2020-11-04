@@ -12,13 +12,19 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.encoders.ObjectEncoder
 import com.google.firebase.ktx.Firebase
+import com.lahielera.app.LoginActivity
+import com.lahielera.app.MainActivity
 import com.lahielera.app.R
 import com.lahielera.app.databinding.PerfilFragmentBinding
 import com.lahielera.app.model.Usuario
@@ -28,6 +34,7 @@ class Perfil_Fragment : Fragment() {
     private lateinit var viewModel: PerfilViewModel
     private lateinit var binding: PerfilFragmentBinding
     private lateinit var auth: FirebaseAuth
+    private var isFromCheckout = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +46,9 @@ class Perfil_Fragment : Fragment() {
                 container,
                 false
         )
+        //if (isFromCheckout) {
+
+        //}
         showProgressBar()
         //cargar spinner
         ArrayAdapter.createFromResource(
@@ -54,7 +64,12 @@ class Perfil_Fragment : Fragment() {
         binding.botonGuardarPerfil.setOnClickListener {
             showProgressBar()
             saveUserData()
+            if (isFromCheckout) {
+                backToCheckout()
+            }
         }
+        val perfilFragmentargs by navArgs<Perfil_FragmentArgs>()
+        isFromCheckout = perfilFragmentargs.isFromCheckout
         binding.lifecycleOwner = this
         binding.botonDirecciones.setOnClickListener {
             moveToDirecciones()
@@ -78,6 +93,9 @@ class Perfil_Fragment : Fragment() {
         })
         viewModel.usuario.observe(viewLifecycleOwner, Observer {usuario ->
             hideProgressBar()
+        })
+        viewModel.isVisible.observe(viewLifecycleOwner, Observer {
+            if (!it) hideProgressBar()
         })
     }
 
@@ -119,6 +137,10 @@ class Perfil_Fragment : Fragment() {
         })
     }
 
+    private fun backToCheckout() {
+        findNavController().navigate(Perfil_FragmentDirections.actionNavPerfilToCheckoutFragment())
+    }
+
     private fun moveToDirecciones() {
         findNavController().navigate(Perfil_FragmentDirections.actionNavPerfilToUbicacionesFragment())
     }
@@ -139,5 +161,6 @@ class Perfil_Fragment : Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.disableToast()
+        isFromCheckout = false
     }
 }

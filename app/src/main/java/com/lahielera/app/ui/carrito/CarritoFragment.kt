@@ -48,6 +48,8 @@ class CarritoFragment : Fragment(), CarritoAdapter.OnCarritoItemClickListener {
             }
         })
         binding.botonCheckout.setOnClickListener {
+            val totalText = binding.totalCarrito.text as String
+            val total = totalText.filter { it.isDigit() || it == '.' }.toFloat()
             findNavController().navigate(CarritoFragmentDirections.actionNavCarritoToCheckoutFragment())
         }
         return binding.root

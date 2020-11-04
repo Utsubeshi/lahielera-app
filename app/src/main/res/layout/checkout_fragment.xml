@@ -23,7 +23,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024"
+        app:layout_constraintVertical_bias="0.20999998"
         app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
 
-            android:text="TextView"
+            android:text="@string/checkout_direccion"
             app:layout_constraintEnd_toStartOf="@+id/editar_direccion_button"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -53,7 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/direccion_checkout"
             app:layout_constraintStart_toStartOf="@+id/direccion_checkout"
@@ -108,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="TextView"
+            android:text="@string/cliente_checkout"
             app:layout_constraintEnd_toStartOf="@+id/editar_cliente_button"
             app:layout_constraintStart_toStartOf="@+id/destinatario_text"
             app:layout_constraintTop_toBottomOf="@+id/destinatario_text" />
@@ -120,7 +119,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/cliente_checkout"
             app:layout_constraintStart_toStartOf="@+id/cliente_checkout"
@@ -138,6 +136,32 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/total_checkout"
+            app:layout_constraintTop_toBottomOf="@+id/total_checkout">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                style="@style/detalle2_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/azul"
+                android:text="@string/pago_efectivo" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                style="@style/detalle2_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/azul"
+                android:text="@string/pago_tarjeta" />
+        </RadioGroup>
 
         <ImageView
             android:id="@+id/imageView11"
@@ -177,7 +201,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="TextView"
             app:layout_constraintEnd_toStartOf="@+id/imageView10"
             app:layout_constraintStart_toEndOf="@+id/imageView11"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -188,7 +211,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="TextView"
             app:layout_constraintEnd_toEndOf="@+id/subtotal_checkout"
             app:layout_constraintStart_toStartOf="@+id/subtotal_checkout"
             app:layout_constraintTop_toBottomOf="@+id/subtotal_checkout" />
@@ -199,9 +221,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/envio_checkout"
             app:layout_constraintStart_toStartOf="@+id/imageView12"
             app:layout_constraintTop_toBottomOf="@+id/envio_checkout" />
