@@ -18,8 +18,7 @@ import java.lang.Exception
 
 class CheckoutViewModel (
     val db: ProductoDatabaseDAO,
-    application: Application
-) : ViewModel() {
+    application: Application) : ViewModel() {
 
     private val dbFirestore = FirebaseFirestore.getInstance()
     private val auth = Firebase.auth
@@ -36,16 +35,19 @@ class CheckoutViewModel (
     val direccion : LiveData<Direccion>
         get() = _direccion
 
+    private var _hasDireccion = MutableLiveData<Boolean>(false)
+    val hasDireccion : LiveData<Boolean>
+        get() = _hasDireccion
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
     init {
         userId = auth.currentUser!!.uid
         getUser()
-        getDireccion()
     }
 
-    private fun getUser() {
+    fun getUser() {
         uiScope.launch {
             getUserFromFireStore()
         }
@@ -56,26 +58,30 @@ class CheckoutViewModel (
             if (document.exists()) {
                 val usuario = document.toObject(Usuario::class.java)
                 _usuario.postValue(usuario)
-            } // else {
-//                _isVisible.postValue(false)
-//            }
+                val direccion = usuario?.direccion
+                if (direccion != null) {
+                    if (direccion.esPredeterminada){
+                        _direccion.postValue(direccion)
+                        _hasDireccion.postValue(true)
+                    } else {
+                        _hasDireccion.postValue(false)
+                    }
+                }
+            }
         }
     }
 
-    private fun getDireccion() {
-        uiScope.launch {
-            getDireccionPredeterminada()
-        }
-    }
-
-    private suspend fun getDireccionPredeterminada() {
-        val direccion: Direccion
-        try {
-            direccion = _usuario.value!!.direccion
-            if (direccion.distrito.isNotEmpty() && direccion.calle.isNotEmpty())
-                _direccion.postValue(direccion)
-        } catch (e: Exception) {
-
-        }
-    }
+//    private fun getDireccion() {
+//        uiScope.launch {
+//            getDireccionPredeterminada()
+//        }
+//    }
+//
+//    private suspend fun getDireccionPredeterminada() {
+//        val usuario = _usuario.value
+//        val direccion = usuario?.direccion
+//        if (direccion != null) {
+//                _direccion.postValue(direccion)
+//        }
+//    }
 }

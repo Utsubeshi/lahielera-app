@@ -68,10 +68,12 @@
     <string name="total_text">PAGO:</string>
     <string name="checkout_pay_btn">confirmar</string>
     <string name="checkout_title">Resumen del pedido</string>
-    <string name="checkout_direccion">Agregue una direccion</string>
+    <string name="checkout_direccion">No hay direcciones registradas</string>
     <string name="cliente_checkout">Agregue sus datos</string>
     <string name="pago_efectivo">En efectivo</string>
     <string name="pago_tarjeta">Con tarjeta</string>
+    <string name="lista_direcciones_checkout">AGREGAR / CAMBIAR DIRECCION</string>
+    <string name="sin_direccion_prederterminada">Agregar direccion predeterminada</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>

@@ -36,6 +36,12 @@ class CheckoutFragment : Fragment() {
         bindindg.editarClienteButton.setOnClickListener {
             editarPerfil()
         }
+        bindindg.editarDireccionButton.setOnClickListener {
+
+        }
+        bindindg.agregarCambiarDireccion.setOnClickListener {
+            moveToDirecciones()
+        }
         return bindindg.root
     }
 
@@ -49,24 +55,44 @@ class CheckoutFragment : Fragment() {
             val total = envio + subtTotal
           bindindg.totalCheckout.text = getString(R.string.formato_total, total)
         })
-
-
         viewModel.usuario.observe(viewLifecycleOwner, Observer {
             bindindg.clienteCheckout.text = it.getNombreCompleto()
             bindindg.celularCheckout.text = it.celular
         })
         viewModel.direccion.observe(viewLifecycleOwner, Observer {direccion ->
-            if (direccion != null) {
+            if (direccion.esPredeterminada) {
                 bindindg.direccionCheckout.text = direccion.getDireccionCompleta()
                 bindindg.distritoCheckout.text = direccion.distrito
+            } else {
+                bindindg.direccionCheckout.text = getString(R.string.sin_direccion_prederterminada)
+                bindindg.distritoCheckout.text = ""
             }
             //TODO ver como deshabilitar el boton
             // bindindg.botonPagar.isEnabled = (direccion != null)
+        })
+        viewModel.hasDireccion.observe(viewLifecycleOwner, Observer { hasDireccion ->
+            if (hasDireccion) {
+                bindindg.editarDireccionButton.isEnabled = hasDireccion
+                bindindg.botonPagar.isEnabled = hasDireccion
+                bindindg.editarDireccionButton.alpha = 1.0F
+            } else {
+                bindindg.editarDireccionButton.isEnabled = hasDireccion
+                bindindg.editarDireccionButton.alpha = 0.2F
+                bindindg.botonPagar.isEnabled = hasDireccion
+            }
         })
     }
 
     private fun editarPerfil() {
         findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToNavPerfil())
+    }
+
+    private fun moveToDirecciones() {
+        findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToNavUbicaciones())
+    }
+
+    private fun editarDireccion() {
+        findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToNavDireccion())
     }
 
     private fun getSubTotal(productos: List<Producto>): Double {
@@ -75,5 +101,12 @@ class CheckoutFragment : Fragment() {
             total = total.plus(producto.precio.times(producto.cantidad))
         }
         return total
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUser()
+        bindindg.direccionCheckout.text = getString(R.string.sin_direccion_prederterminada)
+        bindindg.distritoCheckout.text = ""
     }
 }
