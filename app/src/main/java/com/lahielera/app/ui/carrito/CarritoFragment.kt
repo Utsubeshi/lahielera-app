@@ -33,18 +33,22 @@ class CarritoFragment : Fragment(), CarritoAdapter.OnCarritoItemClickListener {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.carrito_fragment, container,false)
         loadRecyclerView()
+
         val application = requireNotNull(this.activity).application
         val dataSource = ProductoDatabase.getInstance(application).productoDatabaseDAO
         val viewModelFactory = CarritoViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CarritoViewModel::class.java)
+
         binding.lifecycleOwner = this
         viewModel.productos.observe(viewLifecycleOwner, Observer { productos ->
             if (!productos.isNullOrEmpty()) {
                 adapter.addData(productos, this)
                 binding.totalCarrito.text = getString(R.string.formato_precio, getTotal(productos) )
+                binding.botonCheckout.isEnabled = true
             } else {
                 rvCarrito.isVisible = false
                 binding.totalCarrito.text = getString(R.string.carrito_vacio)
+                binding.botonCheckout.isEnabled = false
             }
         })
         binding.botonCheckout.setOnClickListener {

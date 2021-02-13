@@ -91,10 +91,29 @@
             android:id="@+id/action_checkoutFragment_to_nav_perfil"
             app:destination="@id/nav_perfil" />
         <action
-            android:id="@+id/action_checkoutFragment_to_nav_ubicaciones"
-            app:destination="@id/nav_ubicaciones" />
-        <action
             android:id="@+id/action_checkoutFragment_to_nav_direccion"
             app:destination="@id/nav_direccion" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_nav_ubicaciones"
+            app:destination="@id/nav_ubicaciones" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.lahielera.app.ui.payment.PaymentFragment"
+        android:label="payment_fragment"
+        tools:layout="@layout/payment_fragment" >
+        <argument
+            android:name="total"
+            app:argType="float" />
+        <action
+            android:id="@+id/action_paymentFragment_to_nav_catalogo"
+            app:destination="@id/nav_catalogo" />
+        <argument
+            android:name="envio"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

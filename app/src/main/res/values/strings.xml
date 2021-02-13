@@ -37,6 +37,7 @@
     <string name="formato_precio">Total: S/ %.2f</string>
     <string name="formato_subtotal">Pedido:  S/ %.2f</string>
     <string name="formato_total">TOTAL A PAGAR: S/ %.2f</string>
+    <string name="formato_pagar">PAGAR S/ %.2f</string>
     <string name="formato_envio">Envio:    S/ %.2f</string>
     <string name="formato_cantidad">%d</string>
     <string name="carrito_vacio">El carrito de compras esta vacio</string>
@@ -73,7 +74,16 @@
     <string name="pago_efectivo">En efectivo</string>
     <string name="pago_tarjeta">Con tarjeta</string>
     <string name="lista_direcciones_checkout">AGREGAR / CAMBIAR DIRECCION</string>
-    <string name="sin_direccion_prederterminada">Agregar direccion predeterminada</string>
+    <string name="sin_direccion_prederterminada">--</string>
+    <string name="tarjeta_numero_text">Numero de tarjeta</string>
+    <string name="tarjeta_fecha_text">MM/AA</string>
+    <string name="tarjeta_cvv_text">CVV</string>
+    <string name="tarjeta_nombre_text">Nombres</string>
+    <string name="tarjeta_apellidos_text">Apellidos</string>
+    <string name="tarjeta_mes_text">MM</string>
+    <string name="tarjeta_anio_text">AA</string>
+    <string name="tarjeta_email_text">Correo electronico</string>
+    <string name="label_fecha">Fecha:</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>

@@ -159,8 +159,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-
-
             android:id="@+id/boton_guardar_perfil"
             style="@style/button_blue_style"
             android:layout_marginBottom="24dp"

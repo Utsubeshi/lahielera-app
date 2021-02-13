@@ -1,11 +1,7 @@
 package com.lahielera.app.ui.carrito
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.lahielera.app.database.ProductoDatabaseDAO
 import com.lahielera.app.model.Producto
 import kotlinx.coroutines.*
@@ -13,6 +9,7 @@ import kotlinx.coroutines.*
 class CarritoViewModel (
     val db: ProductoDatabaseDAO,
     aplication: Application) : AndroidViewModel(aplication) {
+
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)

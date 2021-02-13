@@ -20,6 +20,8 @@ class CheckoutFragment : Fragment() {
 
     private lateinit var bindindg: CheckoutFragmentBinding
     private lateinit var viewModel: CheckoutViewModel
+    private var total: Double = 0.0
+    private var envio: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,10 +39,13 @@ class CheckoutFragment : Fragment() {
             editarPerfil()
         }
         bindindg.editarDireccionButton.setOnClickListener {
-
+            //TODO
         }
         bindindg.agregarCambiarDireccion.setOnClickListener {
             moveToDirecciones()
+        }
+        bindindg.botonPagar.setOnClickListener {
+            findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(total.toFloat(), envio))
         }
         return bindindg.root
     }
@@ -51,8 +56,9 @@ class CheckoutFragment : Fragment() {
             val subtTotal = getSubTotal(productos)
             bindindg.subtotalCheckout.text = getString(R.string.formato_subtotal, subtTotal)
             val envio = ceil(subtTotal * 0.1)
+            this.envio = envio.toInt()
             bindindg.envioCheckout.text = getString(R.string.formato_envio, envio )
-            val total = envio + subtTotal
+            total = (envio + subtTotal)
           bindindg.totalCheckout.text = getString(R.string.formato_total, total)
         })
         viewModel.usuario.observe(viewLifecycleOwner, Observer {

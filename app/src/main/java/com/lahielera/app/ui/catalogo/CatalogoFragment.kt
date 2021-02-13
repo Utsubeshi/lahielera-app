@@ -135,7 +135,7 @@ class CatalogoFragment : Fragment(), CatalogoAdapter.OnProductosClickListener, C
         val searchItem = menu.findItem(R.id.action_seach)
         val searchView: SearchView = searchItem.actionView as SearchView
 
-        //cerrar el teclado al precionar la X en el searchview
+        //cerrar el teclado al presionar la X en el searchview
         val closeButton = searchView.findViewById<View>(androidx.appcompat.R.id.search_close_btn)
         closeButton.setOnClickListener {
             searchItem.collapseActionView()

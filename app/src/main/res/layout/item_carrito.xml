@@ -46,44 +46,48 @@
 
     <TextView
         android:id="@+id/item_marca"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/lato_bold"
         android:text="@{producto.marca}"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_eliminar"
         app:layout_constraintStart_toEndOf="@+id/imagen_producto"
         app:layout_constraintTop_toTopOf="@+id/imagen_producto" />
 
     <TextView
         android:id="@+id/item_categoria"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_bold"
         android:text="@{producto.categoria}"
         android:textColor="@color/azul"
+        app:layout_constraintEnd_toStartOf="@+id/item_eliminar"
         app:layout_constraintStart_toStartOf="@+id/item_marca"
         app:layout_constraintTop_toBottomOf="@+id/item_marca" />
 
     <TextView
         android:id="@+id/item_nombre"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_bold"
         android:text="@{producto.nombre}"
         android:textColor="@color/azul"
+        app:layout_constraintEnd_toEndOf="@+id/item_categoria"
         app:layout_constraintStart_toStartOf="@+id/item_categoria"
         app:layout_constraintTop_toBottomOf="@+id/item_categoria" />
 
     <TextView
         android:id="@+id/item_precio"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato_bold"
         android:text="@{@string/formato_precio(producto.precio)}"
         android:textColor="@color/azul"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_eliminar"
         app:layout_constraintStart_toStartOf="@+id/item_nombre"
         app:layout_constraintTop_toBottomOf="@+id/item_nombre" />
 

@@ -30,10 +30,12 @@ class CarritoAdapter : RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
                 listener.eliminarDelCarrito(producto.uid.toString())
             }
             binding.itemMas.setOnClickListener {
+                //TODO maximo 3 en variable
                 producto.cantidad = producto.cantidad.plus(1)
                 listener.aumentarCantidad(producto)
             }
             binding.itemMenos.setOnClickListener {
+                //TODO cambiar a variable el 1
                 if (producto.cantidad > 1 )
                     producto.cantidad = producto.cantidad.minus(1)
                     listener.reducirCantidad(producto)

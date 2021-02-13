@@ -15,7 +15,6 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class CatalogoViewModel(
-
         val db: ProductoDatabaseDAO,
         aplication: Application) : AndroidViewModel(aplication) {
 
@@ -172,7 +171,8 @@ class CatalogoViewModel(
             for (producto in productos ) {
                 val nombre = producto.nombre?.toLowerCase(Locale.getDefault())
                 val marca = producto.marca?.toLowerCase(Locale.getDefault())
-                if (nombre!!.contains(newText) ||  marca!!.contains(newText)){
+                val categoria = producto.categoria.toLowerCase(Locale.getDefault())
+                if (nombre!!.contains(newText) ||  marca!!.contains(newText) || categoria.contains(newText)){
                     listaFiltrada.add(producto)
                 }
             }
