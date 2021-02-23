@@ -10,4 +10,5 @@ data class Pedido (
     var fecha: Date = Date(),
     var pedido: ArrayList<Producto> = arrayListOf(),
     var envio: Int = 0,
-    var total: String = "" ) {}
+    var total: String = "",
+    var estado: Int = 1) {}

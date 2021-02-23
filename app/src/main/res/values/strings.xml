@@ -84,6 +84,7 @@
     <string name="tarjeta_anio_text">AA</string>
     <string name="tarjeta_email_text">Correo electronico</string>
     <string name="label_fecha">Fecha:</string>
+    <string name="label_total_pedido">Total S/.</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>
