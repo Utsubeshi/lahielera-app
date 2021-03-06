@@ -32,6 +32,7 @@ import com.lahielera.app.databinding.PaymentFragmentBinding
 import com.lahielera.app.model.Pedido
 import com.lahielera.app.model.Producto
 import com.lahielera.app.model.Usuario
+import com.lahielera.app.notification.PusherClient
 import com.lahielera.app.ui.carrito.CarritoViewModelFactory
 import com.lahielera.app.ui.perfil.PerfilViewModel
 import org.json.JSONObject
@@ -47,12 +48,7 @@ class PaymentFragment ( ) : Fragment() {
     private lateinit var validation: Validation
     private lateinit var viewModelPeril: PerfilViewModel
     private lateinit var auth: FirebaseAuth
-
-    //pedido
     private var pedido = Pedido()
-    //private var cliente = Usuario()
-    //private var total by Delegates.notNull<Float>()
-    //private var envio by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,9 +79,6 @@ class PaymentFragment ( ) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(PaymentViewModel::class.java)
-        //viewModelPeril = PerfilViewModel()
-        //cliente = viewModelPeril.usuario.value!!
         if (arguments != null) {
             val paymentFragmentArgs by navArgs<PaymentFragmentArgs>()
             var total = BigDecimal(paymentFragmentArgs.total.toDouble())
@@ -180,14 +173,14 @@ class PaymentFragment ( ) : Fragment() {
     }
 
     private fun registrarPedido(token: String) {
-        //Toast.makeText(requireContext(), token, Toast.LENGTH_SHORT).show()
         pedido.clienteID = auth.currentUser?.uid ?: ""
         pedido.token = token.substring(24, 49)
-        //pedido.total = "%.2f".format(this.total).toFloat()
         val firestore = FirebaseFirestore.getInstance()
         firestore.collection("Pedidos").add(pedido)
             .addOnSuccessListener { docRef ->
-                Toast.makeText(requireContext(), "Gracias por su compra!!!", Toast.LENGTH_SHORT).show()
+                var pusherClient = PusherClient(requireContext())
+                pusherClient.connect(docRef.id)
+                Toast.makeText(requireContext(), "Gracias por su compra!", Toast.LENGTH_SHORT).show()
                 viewModel.onClear()
                 findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToNavCatalogo())
 

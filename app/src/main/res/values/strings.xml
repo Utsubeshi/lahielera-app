@@ -85,6 +85,9 @@
     <string name="tarjeta_email_text">Correo electronico</string>
     <string name="label_fecha">Fecha:</string>
     <string name="label_total_pedido">Total S/.</string>
+    <string name="channel_name">entregas</string>
+    <string name="channel_description">Pedido en camino a su domicilio</string>
+    <string name="pedido_detalle">Detalle:</string>
 
     <string-array name="documento_tipo">
         <item>DNI</item>
