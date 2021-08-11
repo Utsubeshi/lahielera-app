@@ -90,7 +90,7 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun editarPerfil() {
-        findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToNavPerfil())
+        findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToNavPerfil(true))
     }
 
     private fun moveToDirecciones() {

@@ -31,7 +31,8 @@
             app:popUpToInclusive="false" />
         <argument
             android:name="isFromCheckout"
-            android:defaultValue="true" />
+            app:argType="boolean"
+            android:defaultValue="false" />
         <action
             android:id="@+id/action_nav_perfil_to_checkoutFragment"
             app:destination="@id/checkoutFragment" />
@@ -61,7 +62,7 @@
             android:id="@+id/action_nav_ubicaciones_to_nav_direccion"
             app:destination="@id/nav_direccion"
             app:popUpTo="@id/nav_ubicaciones"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/nav_direccion"
@@ -89,7 +90,11 @@
         tools:layout="@layout/checkout_fragment" >
         <action
             android:id="@+id/action_checkoutFragment_to_nav_perfil"
-            app:destination="@id/nav_perfil" />
+            app:destination="@id/nav_perfil" >
+            <argument
+                android:name="isFromCheckout"
+                android:defaultValue="true" />
+        </action>
         <action
             android:id="@+id/action_checkoutFragment_to_nav_direccion"
             app:destination="@id/nav_direccion" />

@@ -36,6 +36,7 @@ class Perfil_Fragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var isFromCheckout = false
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,11 +66,15 @@ class Perfil_Fragment : Fragment() {
             showProgressBar()
             saveUserData()
             if (isFromCheckout) {
+                isFromCheckout = false
                 backToCheckout()
             }
         }
-        val perfilFragmentargs by navArgs<Perfil_FragmentArgs>()
-        isFromCheckout = perfilFragmentargs.isFromCheckout
+
+            val perfilFragmentargs by navArgs<Perfil_FragmentArgs>()
+            isFromCheckout = perfilFragmentargs.isFromCheckout
+
+
         binding.lifecycleOwner = this
         binding.botonDirecciones.setOnClickListener {
             moveToDirecciones()
